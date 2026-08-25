@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-addTask',
@@ -7,12 +7,17 @@ import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
   styleUrl: './add.component.css'
 })
 
-export class AddComponent implements OnDestroy, AfterContentInit {
-  ngOnDestroy(): void {
-    console.log('El componente AddComponent ha sido destruido');
-  }
+export class AddComponent {
+  numberTasks: number = 10;
+  titleTask: string = '';
+  activeButton: boolean = true;
 
-  ngAfterContentInit(): void {
-    console.log('El contenido proyectado ha sido inicializado');
+  sendTask() {
+    const sizeTitleTask = this.titleTask.split('');
+    if (sizeTitleTask.length > 0) {
+      this.activeButton = false;
+    } else {
+      this.activeButton = true;
+    }
   }
 }
