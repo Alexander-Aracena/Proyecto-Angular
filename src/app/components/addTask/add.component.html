@@ -1,6 +1,27 @@
 <h1>Número de tareas: {{numberTasks}} </h1>
-<span>Título tarea: {{titleTask}} </span>
-<div class="container_input">
-  <input (input)="sendTask()" type="text" placeholder="Ingresar tarea" [(ngModel)]="titleTask" />
-  <button (click)="sendTask()" [disabled]="activeButton">Ingresar tarea</button>
+<span>Título tarea: {{ form.get('title')?.value }} </span>
+
+<!-- FORMULARIO DE PLANTILLA
+<p *ngIf="myInput.invalid && (myInput.dirty || myInput.touched)">
+  <span *ngIf="myInput.errors?.['required']">Este campo es requerido</span>
+</p>
+
+<form class="container_input" #myForm="ngForm" (ngSubmit)="sendData(myForm)" >
+  <input (input)="sendTask()" type="text" placeholder="Ingresar tarea" [(ngModel)]="titleTask" #myInput="ngModel"
+  name="taskTitle" required />
+  <button type="submit" [disabled]="!myInput.valid">Ingresar tarea</button>
+</form>
+
+{{ myInput.valid }} -->
+
+<!-- FORMULARIO REACTIVE
+-->
+<div *ngIf="form.get('title')?.invalid && (form.get('title')?.dirty || form.get('title')?.touched)">
+  <small *ngIf="form.get('title')?.errors?.['required']">El título es requerido</small>
+  <small *ngIf="form.get('title')?.errors?.['maxlength']">El máximo de caracteres es de 10</small>
 </div>
+
+<form class="container_input" [formGroup]="form" (ngSubmit)="sendTaskTitle()">
+  <input type="text" placeholder="Ingresar tarea" formControlName="title" />
+  <button type="submit" [disabled]="!form.valid">Enviar</button>
+</form>
