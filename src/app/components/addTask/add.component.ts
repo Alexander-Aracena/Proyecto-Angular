@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Task } from '../../models/task.interface';
 
 @Component({
   selector: 'app-addTask',
@@ -9,6 +10,44 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 })
 
 export class AddComponent implements OnInit {
+  isActive: boolean = false;
+  titleTask: string = '';
+  activeButton: boolean = true;
+  taskActive!: boolean;
+  tasks: Task[] = [
+    {
+      id: 1,
+      title: 'Tarea 1',
+      completed: false
+    },
+    {
+      id: 2,
+      title: 'Tarea 2',
+      completed: false
+    },
+    {
+      id: 3,
+      title: 'Tarea 3',
+      completed: false
+    },
+    {
+      id: 4,
+      title: 'Tarea 4',
+      completed: false
+    },
+    {
+      id: 5,
+      title: 'Tarea 5',
+      completed: false
+    },
+    {
+      id: 6,
+      title: 'Tarea 6',
+      completed: false
+    }
+  ];
+  numberTasks: number = this.tasks.length;
+
   constructor(private fb:FormBuilder) {}
 
   form!: FormGroup;
@@ -20,14 +59,13 @@ export class AddComponent implements OnInit {
   }
 
   sendTaskTitle(): void {
-    if(this.form.valid) {
+    if(this.form.valid && this.form.get('title')?.value !== '') {
+      this.taskActive = false;
       console.log(this.form.value.title);
+    } else {
+      this.taskActive = true;
     }
   }
-
-  numberTasks: number = 10;
-  titleTask: string = '';
-  activeButton: boolean = true;
 
   sendData(form: NgForm) {
     if (form.valid) {
@@ -42,5 +80,14 @@ export class AddComponent implements OnInit {
     } else {
       this.activeButton = true;
     }
+  }
+
+  markTaskCompleted(task: Task): void {
+    task.completed = !task.completed;
+  }
+
+  delete(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
+    this.numberTasks = this.tasks.length;
   }
 }
