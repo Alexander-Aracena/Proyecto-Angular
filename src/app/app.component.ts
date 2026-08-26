@@ -1,27 +1,24 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component } from '@angular/core';
+import { Task } from './models/task.interface';
 
 @Component({
   selector: 'app-root',
   standalone: false,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
-export class AppComponent implements DoCheck {
-  value: number = 0;
-  previousValue: number = 0;
-  changesDetected: boolean = false;
+export class AppComponent {
+  tasks: Task[] = [];
 
-  updateValue(): void {
-    this.value++;
-    setInterval(() => {
-      this.changesDetected = false;
-    }, 2000);
+  addTask(task: Task): void {
+    this.tasks.push(task);
   }
 
-  ngDoCheck(): void {
-    if (this.value !== this.previousValue) {
-      this.previousValue = this.value;
-      this.changesDetected = true;
-    }
+  markTaskCompleted(task: Task): void {
+    task.completed = !task.completed;
+  }
+
+  deleteTask(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
   }
 }
