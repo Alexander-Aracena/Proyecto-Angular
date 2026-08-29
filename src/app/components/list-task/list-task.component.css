@@ -1,9 +1,15 @@
 .title {
   color: #ccc;
-  
+
 }
 
-.container_task {
+.flex {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.flex .container_task {
   margin: 0 auto;
   width: 50%;
   display: flex;
@@ -15,8 +21,8 @@
   min-height: 450px;
 }
 
-.container_task .task {
-  padding: 10px;
+.flex .container_task .task {
+  padding: 30px;
   margin: 10px;
   border: 1px solid #222;
   width: 90%;
@@ -24,7 +30,13 @@
   color: #ccc;
 }
 
-.container_task .task .task_delete {
+.flex .container_task .task .status {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.flex .container_task .task .task_delete {
   position: absolute;
   top: 15%;
   cursor: pointer;
@@ -36,12 +48,12 @@
   color: white;
 }
 
-.container_task .task .task_check {
+.flex .container_task .task .task_check {
   position: absolute;
   right: 100px;
 }
 
-.container_task .task .subrayar {
+.flex .container_task .task .subrayar {
   text-decoration: line-through;
 }
 

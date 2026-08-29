@@ -8,6 +8,7 @@ import { Task } from '../../models/task.interface';
 })
 export class ListTaskComponent {
   @Input('listTask') tasks: Task[] = [];
+  @Input() tasksUpload: Task[] = [];
   @Output() taskCompleted: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() taskDeleted: EventEmitter<number> = new EventEmitter<number>();
 
