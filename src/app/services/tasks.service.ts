@@ -25,6 +25,15 @@ export class TasksService {
     this.taskChanged.next(this.tasks.slice());
   }
 
+  editTask(updateTask: Task): void {
+    const index = this.tasks.findIndex(task => task.id === updateTask.id);
+    if (index !== -1) {
+      this.tasks[index] = { ...updateTask };
+      this.setLocalStorage();
+      this.taskChanged.next(this.tasks.slice());
+    }
+  }
+
   deleteTask(id: number): void {
     this.tasks = this.tasks.filter(task => task.id !== id);
     this.setLocalStorage();
@@ -50,9 +59,13 @@ export class TasksService {
     }
   }
 
+  getTaskById(id: number): Task | undefined {
+    return this.tasks.find(task => task.id === id);
+  }
+
   setLocalStorage() {
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('task', JSON.stringify(this.tasks));
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
   }
 }

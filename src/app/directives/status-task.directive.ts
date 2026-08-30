@@ -11,7 +11,7 @@ export class StatusTaskDirective {
     if (!completed) {
       this.renderer.setStyle(this.el.nativeElement, 'background-color', 'red');
     } else {
-      this.renderer.setStyle(this.el.nativeElement, 'background-color', '');
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', 'green');
     }
   }
 }

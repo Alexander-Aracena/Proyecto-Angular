@@ -1,0 +1,10 @@
+<h1 class="task_id">Editar Tarea: {{taskId}}</h1>
+
+<div class="container_warning" *ngIf="form.get('title')?.invalid && (form.get('title')?.dirty || form.get('title')?.touched)">
+  <small *ngIf="form.get('title')?.errors?.['required']">El título para actualizar la tarea es requerido</small>
+</div>
+
+<form class="container_input" [formGroup]="form" (ngSubmit)="sendTaskTitle()">
+  <input type="text" placeholder="Ingresar nuevo nombre de tarea" formControlName="title" />
+  <button type="submit" [disabled]="!form.valid">Actualizar</button>
+</form>

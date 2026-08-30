@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Task } from './models/task.interface';
 import { TasksService } from './services/tasks.service';
-import { ApiService } from './services/api.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,10 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   tasksUpload: Task[] = [];
+  open: boolean = false;
   private subscription!: Subscription;
 
-  constructor(private service: TasksService, private serviceAPI: ApiService) {
+  constructor(private service: TasksService, private router: Router) {
     this.subscription = this.service.taskChanged.subscribe(
       task => {
         this.tasks = task;
@@ -25,16 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tasks = this.service.getTasks();
-    this.serviceAPI.loadTask().subscribe(
-      data => {
-        if (Array.isArray(data)) {
-          this.tasksUpload = data;
-        }
-      },
-      error => {
-        console.error('Error al cargar tarea desde la API', error);
-      }
-    );
   }
 
   ngOnDestroy(): void {
@@ -42,17 +33,19 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   addTask(task: Task): void {
-    //this.tasks.push(task);
     this.service.addTask(task);
   }
 
+  openTask(): void {
+    this.open = true;
+    this.router.navigate(['/create']);
+  }
+
   markTaskCompleted(task: Task): void {
-    //task.completed = !task.completed;
     this.service.completeTask(task.id);
   }
 
   deleteTask(id: number): void {
-    //this.tasks = this.tasks.filter(task => task.id !== id);
     this.service.deleteTask(id);
   }
 }

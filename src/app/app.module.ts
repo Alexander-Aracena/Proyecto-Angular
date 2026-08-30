@@ -9,9 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusTaskDirective } from './directives/status-task.directive';
 import { ConfirmDeleteDirective } from './directives/confirm-delete.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
 
 @NgModule({
-  declarations: [AppComponent, AddComponent, ListTaskComponent, StatusTaskDirective, ConfirmDeleteDirective],
+  declarations: [AppComponent, AddComponent, ListTaskComponent, StatusTaskDirective, ConfirmDeleteDirective, EditTaskComponent, CompletedTasksComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent]

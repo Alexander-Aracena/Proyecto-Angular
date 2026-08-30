@@ -1,6 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../../models/task.interface';
+import { TasksService } from '../../services/tasks.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addTask',
@@ -10,12 +12,11 @@ import { Task } from '../../models/task.interface';
 })
 
 export class AddComponent implements OnInit {
-  @Output() taskAdded: EventEmitter<Task> = new EventEmitter<Task>();
   tasks: Task[] = [];
   numberTasks!: number;
   form!: FormGroup;
 
-  constructor(private fb:FormBuilder) {}
+  constructor(private fb:FormBuilder, private service: TasksService, private router: Router) {}
 
   ngOnInit(): void {
     this.numberTasks = this.tasks.length;
@@ -31,7 +32,8 @@ export class AddComponent implements OnInit {
         title: this.form.value.title,
         completed: false
       };
-      this.taskAdded.emit(newTask);
+      this.service.addTask(newTask);
+      this.router.navigate(['/']);
       this.form.reset();
     }
   }

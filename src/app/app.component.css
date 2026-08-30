@@ -1,0 +1,11 @@
+.add_button {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: #2979AA;
+  color: white;
+  cursor: pointer;
+}
