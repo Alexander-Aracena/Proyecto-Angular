@@ -8,7 +8,10 @@ import { Subject } from 'rxjs';
 export class TasksService {
 
   tasks: Task[] = [];
+  tasksCompleted: Task[] = [];
+  tasksDeleted: Task[] = [];
   taskChanged = new Subject<Task[]>();
+  tasksDeletedChanged = new Subject<Task[]>();
 
   constructor() {
     this.getTasks();
@@ -17,6 +20,16 @@ export class TasksService {
   getTasks(): Task[] {
     this.getFromLocalStorage();
     return this.tasks;
+  }
+
+  getTasksCompleted(): Task[] {
+    this.getFromLocalStorage();
+    this.tasksCompleted = this.tasks.filter(task => task.completed);
+    return this.tasksCompleted;
+  }
+
+  getTasksDeleted(): Task[] {
+    return this.tasksDeleted;
   }
 
   addTask(task: Task): void {
@@ -35,9 +48,23 @@ export class TasksService {
   }
 
   deleteTask(id: number): void {
-    this.tasks = this.tasks.filter(task => task.id !== id);
-    this.setLocalStorage();
-    this.taskChanged.next(this.tasks.slice());
+    const taskToDelete = this.tasks.find(task => task.id === id);
+    if (taskToDelete) {
+      this.tasksDeleted.push(taskToDelete);
+      this.tasks = this.tasks.filter(task => task.id !== id);
+      this.setLocalStorage();
+      this.taskChanged.next(this.tasks.slice());
+    }
+  }
+
+  returnTaskDeleted(task: Task): void {
+    if (!this.tasks.some(t => t.id === task.id)) {
+      this.tasks.push(task);
+      this.tasksDeleted = this.tasksDeleted.filter(t => t.id !== task.id);
+      this.taskChanged.next(this.tasks.slice());
+      this.tasksDeletedChanged.next(this.tasksDeleted.slice());
+      this.setLocalStorage();
+    }
   }
 
   completeTask(id: number): void {
@@ -56,6 +83,12 @@ export class TasksService {
         this.tasks = JSON.parse(savedTask);
         this.taskChanged.next(this.tasks.slice());
       }
+
+      const deletedTasks = localStorage.getItem('tasksDeleted');
+      if (deletedTasks) {
+        this.tasksDeleted = JSON.parse(deletedTasks);
+        this.tasksDeletedChanged.next(this.tasksDeleted.slice());
+      }
     }
   }
 
@@ -66,6 +99,7 @@ export class TasksService {
   setLocalStorage() {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('tasks', JSON.stringify(this.tasks));
+      localStorage.setItem('tasksDeleted', JSON.stringify(this.tasksDeleted));
     }
   }
 }

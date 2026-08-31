@@ -1,0 +1,17 @@
+<h1 class="number_task">
+    Número de tareas eliminadas: {{ tasksDeleted.length }}
+  </h1>
+  <div class="flex">
+    <div class="container_task" [ngStyle]="{'justify-content': tasksDeleted.length === 0 ? 'center' : ''}">
+      <div class="task" *ngFor="let task of tasksDeleted; let i = index">
+        <small>{{ task.id }}</small>
+        <span [ngClass]="{'subrayar': task.completed}">
+          {{ task.title }}
+        </span>
+        <button class="task_edit" (click)="returnTask(task)" >Restaurar</button>
+      </div>
+      <span [ngStyle]="{'color': 'white'}" *ngIf="tasksDeleted.length === 0">
+        No hay tareas eliminadas
+      </span>
+    </div>
+  </div>

@@ -31,9 +31,8 @@ export class EditTaskComponent {
   ngOnInit(): void {
     this.numberTasks = this.tasks.length;
     this.form = this.fb.group({
-      title: new FormControl('', [
-        Validators.required
-      ]),
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required)
     });
 
     this.taskId = this.route.snapshot.paramMap.get('id');
@@ -52,6 +51,7 @@ export class EditTaskComponent {
       const updatedTask: Task = {
         id: parseInt(this.taskId, 10),
         title: this.form.value.title,
+        description: this.form.value.description,
         completed: this.task ? this.task.completed : false,
       };
       this.service.editTask(updatedTask);

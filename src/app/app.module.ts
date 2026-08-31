@@ -11,9 +11,11 @@ import { ConfirmDeleteDirective } from './directives/confirm-delete.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
+import { DetailsTasksComponent } from './components/details-tasks/details-tasks.component';
+import { DeletedTasksComponent } from './components/deleted-tasks/deleted-tasks.component';
 
 @NgModule({
-  declarations: [AppComponent, AddComponent, ListTaskComponent, StatusTaskDirective, ConfirmDeleteDirective, EditTaskComponent, CompletedTasksComponent],
+  declarations: [AppComponent, AddComponent, ListTaskComponent, StatusTaskDirective, ConfirmDeleteDirective, EditTaskComponent, CompletedTasksComponent, DetailsTasksComponent, DeletedTasksComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent]

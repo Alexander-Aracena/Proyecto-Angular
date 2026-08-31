@@ -9,3 +9,25 @@
   color: white;
   cursor: pointer;
 }
+
+.tabs {
+  width: auto;
+  height: auto;
+  padding: 10px;
+  position: absolute;
+  left: 10px;
+  top: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.tabs a {
+  text-decoration: none;
+  color: gray;
+}
+
+.tabs .active {
+  color: white;
+}

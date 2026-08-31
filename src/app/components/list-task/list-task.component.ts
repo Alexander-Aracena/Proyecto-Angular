@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ListTaskComponent {
   tasks: Task[] = [];
   tasksUpload: Task[] = [];
+  view: boolean = true;
   private subscription!: Subscription;
 
   constructor(private service: TasksService, private router: Router) {
@@ -21,6 +22,13 @@ export class ListTaskComponent {
         this.tasks = task;
       }
     );
+    this.router.events.subscribe(() => {
+      if (this.router.url !== '/tasks') {
+        this.view = false;
+      } else {
+        this.view = true;
+      }
+    });
   }
 
   completeTask(task: Task): void {
@@ -33,5 +41,9 @@ export class ListTaskComponent {
 
   deleteTask(id: number): void {
     this.service.deleteTask(id);
+  }
+
+  detailsTask(id: number): void {
+    this.router.navigate([`tasks/details/${id}`]);
   }
 }
