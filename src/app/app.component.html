@@ -1,8 +1,11 @@
-<nav class="tabs">
-  <a routerLink="/tasks" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Todas</a>
-  <a routerLink="/tasks/completed" routerLinkActive="active">Completadas</a>
-  <a routerLink="/tasks/deleted" routerLinkActive="active">Eliminadas</a>
-</nav>
+<ng-container *ngIf="view">
+  <div class="title">Tareas</div>
+  <div class="tabs">
+    <a routerLink="/tasks" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Todas</a>
+    <a routerLink="/tasks/completed" routerLinkActive="active">Completadas</a>
+    <a routerLink="/tasks/deleted" routerLinkActive="active">Eliminadas</a>
+  </div>
 
-<button *ngIf="!open" (click)="openTask()" class="add_button">Agregar Tarea</button>
+  <button *ngIf="!open" (click)="openTask()" class="add_button">Agregar Tarea</button>
+</ng-container>
 <router-outlet />

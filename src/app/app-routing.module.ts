@@ -6,11 +6,18 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
 import { DetailsTasksComponent } from './components/details-tasks/details-tasks.component';
 import { DeletedTasksComponent } from './components/deleted-tasks/deleted-tasks.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/AuthGuard.guard';
+import { AuthGuardChild } from './guards/AuthGuardChild.guard';
+import { CanDeactivateGuard } from './guards/ConfirmGuard.guard';
 
 const routes: Routes = [
   {
     path: 'tasks',
     component: ListTaskComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuardChild],
+    canDeactivate: [CanDeactivateGuard],
     children: [
       {
         path: 'completed',
@@ -27,12 +34,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'create',
     component: AddComponent
   },
   {
     path: '',
-    redirectTo: '/tasks',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {

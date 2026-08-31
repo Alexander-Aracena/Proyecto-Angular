@@ -12,9 +12,23 @@ export class TasksService {
   tasksDeleted: Task[] = [];
   taskChanged = new Subject<Task[]>();
   tasksDeletedChanged = new Subject<Task[]>();
+  isAuthenticated: boolean = true;
+  token: boolean = false;
 
   constructor() {
     this.getTasks();
+  }
+
+  login(): void {
+    this.isAuthenticated = true;
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
+  }
+
+  authRoutesChild(): boolean {
+    return this.token;
   }
 
   getTasks(): Task[] {
