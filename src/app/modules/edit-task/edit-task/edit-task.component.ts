@@ -1,12 +1,12 @@
+import { Task } from './../../../models/task.interface';
 import { Component } from '@angular/core';
-import { Task } from '../../models/task.interface';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { TasksService } from '../../services/tasks.service';
+import { TasksService } from '../../../services/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

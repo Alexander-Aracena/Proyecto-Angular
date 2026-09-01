@@ -1,7 +1,7 @@
+import { TasksService } from './../../../services/tasks.service';
+import { Task } from './../../../models/task.interface';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Task } from '../../models/task.interface';
-import { TasksService } from '../../services/tasks.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.numberTasks = this.tasks.length;
     this.form = this.fb.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required)
     });
   }
